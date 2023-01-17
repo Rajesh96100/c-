@@ -1,13 +1,10 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-bool csort(const vector<int>& v1, const vector<int>& v2)
+
+void creatematrix(vector<vector<int> >& v,int r,int c)
 {
-    return v1[1] < v2[1];
-}
-vector<vector<int> > creatematrix(int r,int c)
-{
-    vector<vector<int> > v;
+   
     for(int i = 0;i<r;i++)
     {
         for(int j = 0;j<c;j++)
@@ -15,7 +12,25 @@ vector<vector<int> > creatematrix(int r,int c)
             v[i][j] = (rand() % 100);
         }
     }
-    return v;
+
+}
+void sort(vector<vector<int> >& v)
+{
+    for(int x = 0;x<v.size();x++)
+    {
+    for(int i = 0;i<v[x].size();i++)
+    {
+        for(int j = i;j<v[x].size();j++)
+        {
+            if(v[i][x] > v[j][x])
+            {
+                int t = v[i][x];
+                v[i][x] = v[j][x];
+                v[j][x] = t;
+            }
+        }
+    }
+    }
 }
 void printarray(vector<vector<int> >& v)
 {
@@ -35,10 +50,11 @@ int main(){
     cin>>rows;
     cout<<"enter the no of cols"<<endl;
     cin>> cols;
-
-    vector<vector<int> > v =  creatematrix(rows,cols);
+   
+    vector<vector<int> > v(rows,vector<int>(cols,0));
+    creatematrix(v,rows,cols);
     printarray(v);
-    sort(v.begin(),v.end(),csort);
+    sort(v);
     printarray(v);
 
   return 0;
